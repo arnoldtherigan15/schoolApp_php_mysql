@@ -14,6 +14,7 @@ if(isset($_POST["submit"])) {
         </script>";
     }
 }
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,9 +31,9 @@ if(isset($_POST["submit"])) {
             <p class="lead">A place to have fun. Say no to study</p>
         </div>
     </div>
-    <div class="container">
+    <div class="container d-flex flex-column align-items-center">
         <h2 class="text-center">Add New Student</h2>
-        <form method="post" class="my-5">
+        <form method="post" class="my-5 w-50" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" name="name">
@@ -49,9 +50,9 @@ if(isset($_POST["submit"])) {
                 <label for="jurusan">Jurusan</label>
                 <input type="text" class="form-control" id="jurusan" name="jurusan">
             </div>
-            <div class="form-group">
-                <label for="gambar">Photo</label>
-                <input type="text" class="form-control" id="gambar" aria-describedby="emailHelp" name="gambar">
+            <div class="custom-file mb-4">
+                <input type="file" name="gambar" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
             <button type="submit" name="submit" class="btn btn-primary">Submit</button>
         </form>

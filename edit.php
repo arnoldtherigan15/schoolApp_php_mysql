@@ -32,10 +32,11 @@ if(isset($_POST["submit"])) {
             <p class="lead">A place to have fun. Say no to study</p>
         </div>
     </div>
-    <div class="container">
+    <div class="container d-flex flex-column align-items-center">
         <h2 class="text-center">Edit Student Data</h2>
-        <form method="post" class="my-5">
+        <form method="post" class="my-5 w-50" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= $mahasiswa['id']?>">
+            <input type="hidden" name="gambarLama" value="<?= $mahasiswa['gambar']?>">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" name="name" value="<?= $mahasiswa['name']?>">
@@ -52,9 +53,13 @@ if(isset($_POST["submit"])) {
                 <label for="jurusan">Jurusan</label>
                 <input type="text" class="form-control" id="jurusan" name="jurusan" value="<?= $mahasiswa['jurusan']?>">
             </div>
-            <div class="form-group">
-                <label for="gambar">Photo</label>
-                <input type="text" class="form-control" id="gambar" aria-describedby="emailHelp" name="gambar" value="<?= $mahasiswa['gambar']?>">
+            <div class="d-flex align-items-end mb-4">
+                <img class="mr-4 rounded" src="assets/<?= $mahasiswa['gambar']?>" alt="image" style="width:100px;">
+                <div class="custom-file">
+                    <input type="file" name="gambar" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+            
             </div>
             <button type="submit" name="submit" class="btn btn-primary">Edit</button>
         </form>

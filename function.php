@@ -13,15 +13,56 @@ function query($query) {
 
 function addStudent($data) {
     global $connection;
-    $name = $data["name"];
-    $nrp = $data["nrp"];
-    $email = $data["email"];
-    $jurusan = $data["jurusan"];
-    $gambar = $data["gambar"];
+    $name = htmlspecialchars($data["name"]);
+    $nrp = htmlspecialchars($data["nrp"]);
+    $email = htmlspecialchars($data["email"]);
+    $jurusan = htmlspecialchars($data["jurusan"]);
+    $gambar = upload();
+
+    if(!$gambar) return false;
+
     $query = "INSERT INTO mahasiswa (name, nrp, email, jurusan, gambar)
     VALUES ('$name','$nrp','$email','$jurusan','$gambar');";
     mysqli_query($connection,$query);
     return mysqli_affected_rows($connection);
+}
+
+function upload() {
+    $gambar = $_FILES["gambar"];
+    $file_name = $gambar["name"];
+    $file_size = $gambar["size"];
+    $error = $gambar["error"];
+    $tmp_name = $gambar["tmp_name"];
+    if($error == 4) {
+        echo "<script>
+                alert('photo is required')
+              </script>";
+        return false;
+    }
+    $validExtention = ['jpg','png','jpeg'];
+    $extentionName = explode('.',$file_name);
+    $extentionName = strtolower(end($extentionName));
+    // var_dump(in_array($extentionName,$validExtention));die;
+    if(!in_array($extentionName,$validExtention)) {
+        echo "<script>
+                alert('image can only in jpg,png or jpeg')
+              </script>";
+        return false;
+    }
+
+    if($file_size > 1000000) {
+        echo "<script>
+                alert('please submit photo below 1mb')
+              </script>";
+        return false;
+    }
+
+    $newFileName = uniqid();
+    $newFileName .= '.';
+    $newFileName .= $extentionName;
+
+    move_uploaded_file($tmp_name, 'assets/'. $newFileName);
+    return $newFileName;
 }
 
 function deleteStudent($id) {
@@ -33,11 +74,19 @@ function deleteStudent($id) {
 function editStudent($data) {
     global $connection;
     $id = $data["id"];
-    $name = $data["name"];
-    $nrp = $data["nrp"];
-    $email = $data["email"];
-    $jurusan = $data["jurusan"];
-    $gambar = $data["gambar"];
+    $name = htmlspecialchars($data["name"]);
+    $nrp = htmlspecialchars($data["nrp"]);
+    $email = htmlspecialchars($data["email"]);
+    $jurusan = htmlspecialchars($data["jurusan"]);
+    $gambarLama = htmlspecialchars($data["gambarLama"]);
+    
+
+    if($_FILES["gambar"]["error"] == 4) {
+        $gambar = $gambarLama;
+    } else $gambar = upload();
+
+    if(!$gambar) return false;
+    
     $query = "UPDATE mahasiswa 
     SET 
         name = '$name',
