@@ -29,4 +29,25 @@ function deleteStudent($id) {
     mysqli_query($connection, "DELETE FROM mahasiswa WHERE id = $id");
     return mysqli_affected_rows($connection);
 }
+
+function editStudent($data) {
+    global $connection;
+    $id = $data["id"];
+    $name = $data["name"];
+    $nrp = $data["nrp"];
+    $email = $data["email"];
+    $jurusan = $data["jurusan"];
+    $gambar = $data["gambar"];
+    $query = "UPDATE mahasiswa 
+    SET 
+        name = '$name',
+        nrp = '$nrp',
+        email = '$email',
+        jurusan = '$jurusan',
+        gambar = '$gambar'
+    WHERE
+        id = '$id';";
+    mysqli_query($connection,$query);
+    return mysqli_affected_rows($connection);
+}
  ?>

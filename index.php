@@ -47,7 +47,11 @@ $mahasiswa = query("select * from mahasiswa;");
                         <td><?= $person["email"]?></td>
                         <td><?= $person["jurusan"]?></td>
                         <td>
-                            <button type="button" class="btn btn-outline-warning">Edit</button>
+                            <button type="button" class="btn btn-outline-warning">
+                                <a 
+                                    class="text-warning" 
+                                    href="edit.php?id=<?= $person['id']?>">Edit</a>
+                            </button>
                             <button type="button" class="btn btn-outline-danger">
                                 <a 
                                     class="text-danger" 
