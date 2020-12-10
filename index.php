@@ -48,7 +48,12 @@ $mahasiswa = query("select * from mahasiswa;");
                         <td><?= $person["jurusan"]?></td>
                         <td>
                             <button type="button" class="btn btn-outline-warning">Edit</button>
-                            <button type="button" class="btn btn-outline-danger">Delete</button>
+                            <button type="button" class="btn btn-outline-danger">
+                                <a 
+                                    class="text-danger" 
+                                    href="delete.php?id=<?= $person['id']?>"
+                                    onclick="return confirm('are you sure?')">Delete</a>
+                            </button>
                         </td>
                     </tr>
                 <?php endforeach?>

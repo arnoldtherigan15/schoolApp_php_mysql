@@ -23,4 +23,10 @@ function addStudent($data) {
     mysqli_query($connection,$query);
     return mysqli_affected_rows($connection);
 }
+
+function deleteStudent($id) {
+    global $connection;
+    mysqli_query($connection, "DELETE FROM mahasiswa WHERE id = $id");
+    return mysqli_affected_rows($connection);
+}
  ?>
