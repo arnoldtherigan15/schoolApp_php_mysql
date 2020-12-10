@@ -50,4 +50,16 @@ function editStudent($data) {
     mysqli_query($connection,$query);
     return mysqli_affected_rows($connection);
 }
+
+function search($keywoard) {
+    global $connection;
+    $query = "SELECT * FROM mahasiswa
+    WHERE 
+        name LIKE '%$keywoard%' OR
+        nrp LIKE '%$keywoard%' OR
+        email LIKE '%$keywoard%' OR
+        jurusan LIKE '%$keywoard%';
+    ";
+    return query($query);
+}
  ?>

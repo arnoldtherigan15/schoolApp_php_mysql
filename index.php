@@ -1,7 +1,18 @@
 <?php 
 require 'function.php';
+$notfound = true;
 $mahasiswa = query("select * from mahasiswa;");
-
+if(count($mahasiswa)>0) {
+    $notfound = false;
+}
+if(isset($_POST["keywoard"])) {
+    $mahasiswa = search($_POST["keywoard"]);
+    if(count($mahasiswa)>0) {
+        $notfound = false;        
+    } else {
+        $notfound = true;
+    }
+} 
 
  ?>
 <!DOCTYPE html>
@@ -10,6 +21,7 @@ $mahasiswa = query("select * from mahasiswa;");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <title>School App</title>
 </head>
 <body>
@@ -20,9 +32,16 @@ $mahasiswa = query("select * from mahasiswa;");
         </div>
     </div>
     <div class="container">
-    <h5 style="text-decoration:underline;">
-        <a class="text-dark" href="addForm.php">Add New Student</a>
-    </h5>
+    <div class="d-flex align-items-center mb-4">
+        <h5 class="w-25 text-center" style="text-decoration:underline;">
+            <a class="text-dark" href="addForm.php">Add New Student</a>
+        </h5>
+        <form method="post" class="w-75">
+            <div class="md-form mt-0">
+                <input class="form-control" name="keywoard" type="text" placeholder="Search" aria-label="Search">
+            </div>
+        </form>
+    </div>
         <table class="table table-striped text-center">
             <thead>
                 <tr>
@@ -36,6 +55,7 @@ $mahasiswa = query("select * from mahasiswa;");
                 </tr>
             </thead>
             <tbody>
+            <?php if(!$notfound):?>
                 <?php foreach($mahasiswa as $person): ?>
                     <tr>
                         <th scope="row"><?= $person["id"]?></th>
@@ -47,20 +67,19 @@ $mahasiswa = query("select * from mahasiswa;");
                         <td><?= $person["email"]?></td>
                         <td><?= $person["jurusan"]?></td>
                         <td>
-                            <button type="button" class="btn btn-outline-warning">
-                                <a 
-                                    class="text-warning" 
-                                    href="edit.php?id=<?= $person['id']?>">Edit</a>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger">
-                                <a 
-                                    class="text-danger" 
-                                    href="delete.php?id=<?= $person['id']?>"
-                                    onclick="return confirm('are you sure?')">Delete</a>
-                            </button>
+                            <a class="btn btn-outline-warning" 
+                                href="edit.php?id=<?= $person['id']?>">Edit</a>
+                            <a class="text-danger btn btn-outline-danger" href="delete.php?id=<?= $person['id']?>"
+                                onclick="return confirm('are you sure?')">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach?>
+                <?php else :?>
+                    <tr>
+                        <td colspan="7"><h4>No Data ...</h4></td>
+                    </tr>
+                        
+                <?php endif ?>
             </tbody>
         </table>
     </div>
