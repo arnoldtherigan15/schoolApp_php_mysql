@@ -16,7 +16,7 @@ Spec
 - mysql
 ```
 
-[demo click here](www.arnoldtherigan.42web.io)
+See demo[click here](www.arnoldtherigan.42web.io)
 
 ```markdown
 ### Login with this email
