@@ -2,12 +2,14 @@
 $connection = mysqli_connect("localhost","root","","phpdasar");
 session_start();
 function query($query) {
+    // echo($query);
     global $connection;
     $temp = mysqli_query($connection, $query);
     $result = [];
     while ($data = mysqli_fetch_assoc($temp)) {
         $result[] = $data;
     }
+    
     return $result;
 }
 

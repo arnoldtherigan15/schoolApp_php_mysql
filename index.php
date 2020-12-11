@@ -33,6 +33,7 @@ if(isset($_POST["keywoard"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
     <title>School App</title>
 </head>
 <body>
@@ -44,7 +45,7 @@ if(isset($_POST["keywoard"])) {
     </div>
     <div class="container">
         <a href="logout.php" class="btn btn-danger" style="position:absolute; top:15px; right:15px;">Logout</a>
-        <div class="d-flex align-items-center mb-4">
+        <div class="d-flex align-items-center mb-4" style="position:relative;">
             <h5 class="w-25 text-center" style="text-decoration:underline;">
                 <a class="text-dark" href="addForm.php">Add New Student</a>
             </h5>
@@ -54,6 +55,7 @@ if(isset($_POST["keywoard"])) {
                 </div>
                 <img id="loader" src="./assets/loader.jpg" alt="loader" style="height:35px;position:absolute;top:2px;right:0;">
             </form>
+            <a class="btn btn-outline-secondary" href="print.php" target=”_blank” style="position:absolute;top:70px;right:-100px;">Print<i class="fas fa-print ml-2"></i></a>
         </div>
         <div id="dataTable" style="height:380px;">
             <table class="table table-striped text-center">
