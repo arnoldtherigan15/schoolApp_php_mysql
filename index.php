@@ -1,5 +1,11 @@
 <?php 
 require 'function.php';
+
+if(!isset($_SESSION["login"])) {
+    header('Location: login.php');
+    exit;
+}
+
 $notfound = true;
 $mahasiswa = query("SELECT * FROM mahasiswa ORDER BY id DESC;");
 if(count($mahasiswa)>0) {
@@ -31,16 +37,17 @@ if(isset($_POST["keywoard"])) {
         </div>
     </div>
     <div class="container">
-    <div class="d-flex align-items-center mb-4">
-        <h5 class="w-25 text-center" style="text-decoration:underline;">
-            <a class="text-dark" href="addForm.php">Add New Student</a>
-        </h5>
-        <form method="post" class="w-75">
-            <div class="md-form mt-0">
-                <input class="form-control" name="keywoard" type="text" placeholder="Search" aria-label="Search">
-            </div>
-        </form>
-    </div>
+        <a href="logout.php" class="btn btn-danger" style="position:absolute; top:15px; right:15px;">Logout</a>
+        <div class="d-flex align-items-center mb-4">
+            <h5 class="w-25 text-center" style="text-decoration:underline;">
+                <a class="text-dark" href="addForm.php">Add New Student</a>
+            </h5>
+            <form method="post" class="w-75">
+                <div class="md-form mt-0">
+                    <input class="form-control" name="keywoard" type="text" placeholder="Search" aria-label="Search">
+                </div>
+            </form>
+        </div>
         <table class="table table-striped text-center">
             <thead>
                 <tr>

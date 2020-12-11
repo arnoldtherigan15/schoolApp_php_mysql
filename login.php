@@ -1,5 +1,19 @@
 <?php 
 require 'function.php';
+if(isset($_COOKIE["id"]) && isset($_COOKIE["key"])) {
+    $id = $_COOKIE["id"];
+    $key = $_COOKIE["key"];
+    $user = query("SELECT * FROM users WHERE id = $id")[0];
+    if($key == hash('sha256', $user["email"])) {
+        $_SESSION["login"] = true;
+    }
+}
+
+if(isset($_SESSION["login"])) {
+    header('Location: index.php');
+    exit;
+}
+
 if(isset($_POST["login"])) {
     if(login($_POST) > 0) {
         header('Location: index.php');
@@ -44,8 +58,8 @@ if(isset($_POST["login"])) {
                             <input type="password" class="form-control" id="password" name="password" placeholder="password">
                         </div>
                         <div class="form-group login-group-checkbox">
-                            <input type="checkbox" id="lg_remember" name="lg_remember">
-                            <label for="lg_remember">remember</label>
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">remember</label>
                         </div>
                     </div>
                     <button name="login" type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>

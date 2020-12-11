@@ -4,7 +4,6 @@ $id = $_GET["id"];
 if(deleteStudent($id) > 0) {
     echo "
         <script> 
-            alert('delete data success'); 
             window.location.href='index.php'; 
         </script>";
 } else {

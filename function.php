@@ -1,6 +1,6 @@
 <?php 
 $connection = mysqli_connect("localhost","root","","phpdasar");
-
+session_start();
 function query($query) {
     global $connection;
     $temp = mysqli_query($connection, $query);
@@ -148,6 +148,13 @@ function login($data) {
     $user = query("SELECT * FROM users WHERE email = '$email'")[0];
     if($user) {
         if(password_verify($password, $user["password"])) {
+            $_SESSION["login"] = true;
+            if(isset($data["remember"])) {
+                setcookie('id', $user["id"], time()+60);
+                setcookie('key', hash('sha256',$user["email"]), time()+60);
+
+            }
+            // die;
             return 1;
         } else {
             return false;
