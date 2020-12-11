@@ -102,12 +102,18 @@ function editStudent($data) {
 
 function search($keywoard) {
     global $connection;
+    $totalData = count(query("SELECT * FROM mahasiswa"));
+    $dataPerPage = 3;
+    $totalPage = ceil($totalData / $dataPerPage);
+    $activePage = isset($_GET["page"])? +$_GET["page"] : 1;
+    $initialData = ceil($dataPerPage * $activePage) - $dataPerPage;
     $query = "SELECT * FROM mahasiswa
     WHERE 
         name LIKE '%$keywoard%' OR
         nrp LIKE '%$keywoard%' OR
         email LIKE '%$keywoard%' OR
-        jurusan LIKE '%$keywoard%';
+        jurusan LIKE '%$keywoard%'
+    LIMIT $initialData,$dataPerPage;
     ";
     return query($query);
 }
@@ -152,9 +158,7 @@ function login($data) {
             if(isset($data["remember"])) {
                 setcookie('id', $user["id"], time()+60);
                 setcookie('key', hash('sha256',$user["email"]), time()+60);
-
             }
-            // die;
             return 1;
         } else {
             return false;
