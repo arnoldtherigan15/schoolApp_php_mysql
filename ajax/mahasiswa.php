@@ -1,4 +1,5 @@
 <?php 
+
 require '../function.php';
 $keywoard = $_GET["keywoard"];
 $notfound = true;

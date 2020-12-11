@@ -48,10 +48,11 @@ if(isset($_POST["keywoard"])) {
             <h5 class="w-25 text-center" style="text-decoration:underline;">
                 <a class="text-dark" href="addForm.php">Add New Student</a>
             </h5>
-            <form method="post" class="w-75">
+            <form method="post" class="w-75" style="position:relative;">
                 <div class="md-form mt-0">
                     <input id="keywoard" class="form-control" name="keywoard" type="text" placeholder="Search" aria-label="Search">
                 </div>
+                <img id="loader" src="./assets/loader.jpg" alt="loader" style="height:35px;position:absolute;top:2px;right:0;">
             </form>
         </div>
         <div id="dataTable" style="height:380px;">
@@ -125,6 +126,7 @@ if(isset($_POST["keywoard"])) {
             </nav>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="./scripts/livesearch.js"></script>
 </body>
 </html>
