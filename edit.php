@@ -27,7 +27,7 @@ if(isset($_POST["submit"])) {
 </head>
 <body>
     <div class="jumbotron jumbotron-fluid">
-        <div class="container">
+        <div class="container text-center">
             <h1 class="display-4">Happy School</h1>
             <p class="lead">A place to have fun. Say no to study</p>
         </div>

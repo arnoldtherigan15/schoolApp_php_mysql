@@ -111,4 +111,49 @@ function search($keywoard) {
     ";
     return query($query);
 }
+
+function register($data) {
+    global $connection;
+    $email = strtolower($data["email"]);
+    $password = $data["password"];
+    $password2 = $data["password2"];
+    $user = query("SELECT * FROM users WHERE email = '$email'");
+    
+    if(!$user) {
+        if($password === $password2) {
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            $query = "INSERT INTO users (email, password)
+            VALUES ('$email','$password');";
+            mysqli_query($connection,$query);
+            return mysqli_affected_rows($connection);
+        } else {
+            echo "<script>
+                alert('password not matched');
+              </script>";
+            return false;
+        }
+    } else {
+        echo "<script>
+                alert('email is being used');
+              </script>";
+        return false;
+    }
+
+}
+
+function login($data) {
+    global $connection;
+    $email = strtolower($data["email"]);
+    $password = $data["password"];
+    $user = query("SELECT * FROM users WHERE email = '$email'")[0];
+    if($user) {
+        if(password_verify($password, $user["password"])) {
+            return 1;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
  ?>
